@@ -6,9 +6,6 @@ import { Home } from '../Home/Home';
 
 
 
-
-
-
 export const Body = () => {
 
  
