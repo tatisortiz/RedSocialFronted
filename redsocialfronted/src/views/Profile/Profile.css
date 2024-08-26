@@ -1,0 +1,61 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+  }
+  
+  .profile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    width: 100vw; 
+    background: rgba(255, 255, 255, 0.8); 
+    backdrop-filter: blur(10px); 
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .profile h2 {
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .profile p {
+    margin: 10px 0;
+    color: #555;
+    font-size: 1.1em;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  .CInput input {
+    width: 300px;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 1em;
+  }
+  
+  .CInput input[type="button"] {
+    width: 100px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .CInput input[type="button"]:hover {
+    background-color: #555;
+  }
+  
+  .CInput input[type="button"].hidden {
+    display: none;
+  }
+  

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { registerUser } from "../../components/Header/Services/apiCalls";
+import { registerUser } from "../Services/apiCalls";
+
 
 
 export const Register = () => {

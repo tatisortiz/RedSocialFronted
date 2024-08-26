@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
 import { useState } from "react";
-import { loginUser } from "../../components/Header/Services/apiCalls";
+import { loginUser } from "../Services/apiCalls";
 import { jwtDecode } from "jwt-decode";
 
 
@@ -25,9 +25,9 @@ export const Login = () => {
             const response = await loginUser(credentials);
 
             if (response.success) {
-                const decodedToken = jwtDecode(response.token);
+                const decodedToken = jwtDecode(response.data);
                 const passport = {
-                    token: response.token,
+                    token: response.data,
                     tokenData: decodedToken,
                 };
 
