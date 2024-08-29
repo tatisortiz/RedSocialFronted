@@ -1,9 +1,8 @@
-
 import { useEffect, useState } from "react";
-import "./Profile.css"
 import { useNavigate } from "react-router-dom";
-import { getProfile, updateProfile } from "../Services/apiCalls";
-import { CInput } from "../../components/CInput/CInput";
+import { getProfile, updateProfile } from "../../Services/apiCalls";
+import { CInput } from '../../components/CInput/CInput.jsx';
+
 
 
 export const Profile = () => {

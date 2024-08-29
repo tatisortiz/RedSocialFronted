@@ -17,7 +17,7 @@ export const CreatePost = () => {
         content,
       };
   
-      const result = await (newPost);
+      const result = await (CreatePost);
   
       if (result) {
         // Maneja el éxito (por ejemplo, redirige o limpia el formulario)

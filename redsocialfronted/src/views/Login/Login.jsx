@@ -1,7 +1,6 @@
-import { useNavigate } from "react-router-dom";
-import "./Login.css";
 import { useState } from "react";
-import { loginUser } from "../Services/apiCalls";
+import { useNavigate } from "react-router-dom";
+import { loginUser } from "../../Services/apiCalls";
 import { jwtDecode } from "jwt-decode";
 
 
