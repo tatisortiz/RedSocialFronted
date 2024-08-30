@@ -22,13 +22,16 @@ export const Header = () => {
 
     return (
         <header className="header">
-            <NavLink to="/" className="nav-link">Home</NavLink>
-            <NavLink to="/register" className="nav-link">Register</NavLink>
-            <NavLink to="/login" className="nav-link">Login</NavLink>
-            {role === 2 ? (<NavLink to="/admin" className="nav-link">Admin</NavLink>) : null}
-            {token ? (
-                <NavLink to="/login" onClick={logOut}>Logout</NavLink>
-            ) : null}
+            <div className="header-div">
+                <NavLink to="/" className="nav-link">Home</NavLink>
+                <NavLink to="/register" className="nav-link">Register</NavLink>
+                <NavLink to="/login" className="nav-link">Login</NavLink>
+                {role === 2 ? (<NavLink to="/admin" className="nav-link">Admin</NavLink>) : null}
+                {token ? (
+                    <NavLink to="/login" onClick={logOut}>Logout</NavLink>
+                ) : null}
+            </div>
+            
           
         </header>
     );
