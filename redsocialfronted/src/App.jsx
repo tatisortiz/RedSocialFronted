@@ -6,11 +6,12 @@ import { Header } from './components/Header/Header';
 function App() {
 	return (
 		<>
-		<BrowserRouter>
-            <Header/>
-			<Body />
+			<BrowserRouter>
+				<main className='app-main'>
+					<Header/>
+					<Body />
+				</main>
 			</BrowserRouter>
-          
 		</>
 	);
 }
