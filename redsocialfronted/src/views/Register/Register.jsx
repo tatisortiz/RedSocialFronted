@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../../Services/apiCalls";
 
+import "./Register.css"
 
 
 
@@ -45,31 +46,42 @@ export const Register = () => {
 
   return (
   
-      <div className="register">
       <div className="register-container">
-        <h1>Register</h1>
-        <h2>Create an account or login</h2>
-        <input
-          type="text"
-          name="name"
-          placeholder="name"
-          onChange={handleChange}
-        />
+        <div className="register-div">
+          <div className="register-title">
+            <span>Please sign up!</span>
+          </div>
+          <div className="register-subtitle">
+            Create an account or login
+          </div>        
+          
+          <input
+            className="input-field"
+            type="text"
+            name="name"
+            placeholder="Name"
+            onChange={handleChange}
+          />
 
-        <input
-          type="text"
-          name="email"  
-          placeholder="Email"
-          onChange={handleChange}
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-        />
-        
-        <input type="button" value="Register" onClick={register} />
+          <input
+            className="input-field"
+            type="text"
+            name="email"  
+            placeholder="Email"
+            onChange={handleChange}
+          />
+          <input
+            className="input-field"
+            type="password"
+            name="password"
+            placeholder="Password"
+            onChange={handleChange}
+          />
+          
+          <input className="register-button" type="button" value="Register" onClick={register} />
+          <div className="register-div-link">
+              <a className="register-div-a">Already have an account?- </a><a className="register-div-a-link" onClick={()=>{navigate('/login');}}> Sign In</a>
+          </div>
         </div>
       </div>
   );
