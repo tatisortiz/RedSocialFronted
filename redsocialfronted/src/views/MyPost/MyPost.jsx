@@ -7,6 +7,7 @@ import { useAuth } from "../../contexts/AuthContexts";
 export const MyPosts = () => {
     const [posts, setPosts] = useState([]);
     const [editposts, setEditposts] = useState({
+        title:"",
         description: "",
         id: null,
     });
@@ -95,6 +96,7 @@ export const MyPosts = () => {
                 <table className="table custom-table">
                   <thead>
                     <tr>
+                      <th>Title</th>
                       <th>Description</th>
                       <th>Edit</th>
                       <th>Delete</th>
@@ -103,6 +105,19 @@ export const MyPosts = () => {
                   <tbody>
                     {posts.map((post) => (
                       <tr key={post._id}>
+                        <td>
+                          {currentEditId === post._id && editting ? (
+                            <input
+                              type="text"
+                              name="title"
+                              value={editposts.title}
+                              onChange={editInputHandler}
+                              className="form-control edit-input"
+                            />
+                          ) : (
+                            post.title || 'Not available'
+                          )}
+                        </td>
                         <td>
                           {currentEditId === post._id && editting ? (
                             <input
@@ -149,6 +164,8 @@ export const MyPosts = () => {
                     ))}
                   </tbody>
                 </table>
+                
+                <Link to="/createPost" className="create-post-link">Create Post</Link>
               </div>
             ) : (
               <div className="no-posts-wrapper">

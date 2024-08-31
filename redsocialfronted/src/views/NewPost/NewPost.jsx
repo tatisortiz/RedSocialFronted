@@ -1,11 +1,14 @@
 import { useState } from "react";
-
+import { createPost } from "../../Services/apiCalls";
 
 export const CreatePost = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+    
+    const passport = JSON.parse(localStorage.getItem("passport"));
+    const token = passport?.token;
   
     const handleSubmit = async (e) => {
       e.preventDefault();
@@ -13,23 +16,24 @@ export const CreatePost = () => {
       setError(null);
   
       const newPost = {
-        title,
-        content,
+        title:title,
+        description:content,
       };
-  
-      const result = await (CreatePost);
-  
-      if (result) {
-        // Maneja el éxito (por ejemplo, redirige o limpia el formulario)
-        alert('Post creado exitosamente!');
-        setTitle('');
-        setContent('');
+      if (!passport) {
+        navigate("/login");
       } else {
-        // Maneja el error
-        setError('No se pudo crear el post. Inténtalo de nuevo.');
+        const result = await (createPost(token,newPost));
+        console.log(result)
+        if (result.success) {
+          alert('Post creado exitosamente!');
+          setTitle('');
+          setContent('');
+        } else {
+          setError('No se pudo crear el post. Inténtalo de nuevo.');
+        }
+    
+        setLoading(false);
       }
-  
-      setLoading(false);
     };
   
     return (
