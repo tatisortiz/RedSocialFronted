@@ -64,7 +64,7 @@ export const updateProfile = async (data,token) => {
  }
 
  export const createPost = async (token, data) => {
-    const response = await fetch(`${URL}`, {
+    const response = await fetch(`${URL}/api/posts`, {
         method: "POST",
         headers: {
             "Content-type": "application/json",
