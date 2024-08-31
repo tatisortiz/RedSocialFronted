@@ -3,6 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../../Services/apiCalls";
 import { jwtDecode } from "jwt-decode";
 
+import "./Login.css"
+
 
 export const Login = () => {
     const navigate = useNavigate();
@@ -41,23 +43,32 @@ export const Login = () => {
     }
 
     return (
-        <div className="login">
-            <div className="loginone">
-                <h1>login</h1>
-                <h2>Create an account or login</h2>
+        <div className="login-container">
+            <div className="login-div">
+                <div className="login-title">
+                    <span>Please sign in </span>
+                </div>
+                <div className="login-subtitle">
+                    Sign In Using Your Registered Account
+                </div>
                 <input
+                    className="input-field"
                     type="text"
                     name="email"
                     placeholder="Email"
                     onChange={handleChange}
                 />
                 <input
+                    className="input-field"
                     type="password"
                     name="password"
                     placeholder="Password"
                     onChange={handleChange}
                 />
-                <input type="button" value="login" onClick={loginButton} />
+                <input className="login-button" type="button" value="Sign in" onClick={loginButton} />
+                <div className="login-div-link">
+                    <a className="login-div-a">Don't have an account?- </a><a className="login-div-a-link" onClick={()=>{navigate('/register');}}> Sign Up</a>
+                </div>
             </div>
         </div>
     );
