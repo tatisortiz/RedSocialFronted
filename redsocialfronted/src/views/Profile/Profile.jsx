@@ -33,6 +33,7 @@ export const Profile = () => {
       const bringMyProfile = async () => {
         const response = await getProfile(passport.token);
         setProfileData(response.data);
+        console.log(response.data)
       }
       bringMyProfile();
     }
@@ -67,7 +68,7 @@ export const Profile = () => {
     <div className="profile">
       <h2>Profile</h2>
       <p className={editting ? "hidden" : ""}>
-        Name: {profileData.name ? profileData.name : "not available"}
+        Name: {profileData.first_name ? profileData.first_name + " "+profileData.last_name : "not available"}
       </p>
       <CInput
         type="text"
