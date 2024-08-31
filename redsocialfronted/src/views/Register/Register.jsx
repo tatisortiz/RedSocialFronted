@@ -10,7 +10,8 @@ export const Register = () => {
   const navigate = useNavigate ()
   const [credentials, setCredentials] = useState({
     email: "",
-    name: "",
+    first_name: "",
+    last_name: "",
     password: "",
   });
 
@@ -58,17 +59,28 @@ export const Register = () => {
           <input
             className="input-field"
             type="text"
-            name="name"
-            placeholder="Name"
+            name="first_name"
+            placeholder="First name"
             onChange={handleChange}
+            required
           />
-
+          
+          <input
+            className="input-field"
+            type="text"
+            name="last_name"
+            placeholder="Last name"
+            onChange={handleChange}
+            required
+          />
+          
           <input
             className="input-field"
             type="text"
             name="email"  
             placeholder="Email"
             onChange={handleChange}
+            required
           />
           <input
             className="input-field"
@@ -76,6 +88,7 @@ export const Register = () => {
             name="password"
             placeholder="Password"
             onChange={handleChange}
+            required
           />
           
           <input className="register-button" type="button" value="Register" onClick={register} />
