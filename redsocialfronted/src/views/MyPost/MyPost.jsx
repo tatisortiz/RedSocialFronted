@@ -13,24 +13,30 @@ export const MyPosts = () => {
     const [editting, setEditing] = useState(false);
     const [currentEditId, setCurrentEditId] = useState(null);
     const navigate = useNavigate();
-    const { passport } = useAuth();
+    const passport  = JSON.parse(localStorage.getItem('passport'));
     const token = passport ? passport.token : null;
+    let statusPosts=null
 
     useEffect(() => {
-        if (!token) {
-            navigate('/login');
-            return;
-        }
-        const bringMyPosts = async () => {
+      if (!token) {
+          navigate('/login');
+          return;
+      }
+      const bringMyPosts = async () => {
+        try {
             const MyPosts = await getMyPosts(token);
             if (MyPosts.success) {
                 setPosts(MyPosts.data);
             } else {
-                navigate('/login');
+              statusPosts=0
             }
-        };
-        bringMyPosts();
-    }, [navigate, token]);
+        } catch (error) {
+            console.error("Error fetching posts:", error);
+            navigate('/login');
+        }
+      };
+      bringMyPosts();
+  }, [navigate, token]);
 
     const editInputHandler = (e) => {
         setEditposts({

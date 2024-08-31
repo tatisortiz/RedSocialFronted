@@ -109,7 +109,7 @@ export const deletePostById = async (token, id) => {
 
   export const getMyPosts = async (token) => {
     try {
-        const response = await fetch(`${URL}/own`, {
+        const response = await fetch(`${URL}/api/posts/own`, {
             method: "GET",
             headers: {
               "content-Type": "application/json",
@@ -125,7 +125,7 @@ export const deletePostById = async (token, id) => {
 
 export const updatePosts = async (id, data, token) => {
     try {
-        const response = await fetch(`${URL}/own/${id}`, {
+        const response = await fetch(`${URL}/api/posts/own/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
