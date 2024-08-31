@@ -125,7 +125,7 @@ export const deletePostById = async (token, id) => {
 
 export const updatePosts = async (id, data, token) => {
     try {
-        const response = await fetch(`${URL}/api/posts/own/${id}`, {
+        const response = await fetch(`${URL}/api/posts/${id}`, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
