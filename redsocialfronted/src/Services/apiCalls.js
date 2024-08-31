@@ -93,7 +93,7 @@ export const getAllPosts = async (token) => {
 
 export const deletePostById = async (token, id) => {
     try {
-        const response = await fetch(`${URL}/${id}`, { 
+        const response = await fetch(`${URL}/api/posts/${id}`, { 
             method: "DELETE",
             headers: {
                 "Content-Type": "application/json",
