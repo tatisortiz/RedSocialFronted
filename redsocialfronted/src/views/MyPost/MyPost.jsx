@@ -117,10 +117,13 @@ export const MyPosts = () => {
                     {posts.map((post) => (
                       <Post
                         key={post._id}
+                        userId={post.user_id}
+                        postId={post._id}
                         email={profileData.email}
                         name={profileData.first_name+" "+profileData.last_name}
                         title={post.title} 
                         content={post.description}
+                        likes={post.likes}
                       />
                       ))}                
                 </div>
