@@ -170,5 +170,33 @@ export const getPostById = async (id,token) => {
         throw error;
     }
 }
-
-
+export const getAllUsers = async (token) => {
+    try {
+        const response = await fetch(`${URL}/api/users`, { 
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error getting post by id:", error);
+        throw error;
+    }
+}
+export const getPostByUserId = async (id, token) => {
+    try {
+        const response = await fetch(`${URL}/api/posts/user/${id}`, { 
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error getting post by id:", error);
+        throw error;
+    }
+}

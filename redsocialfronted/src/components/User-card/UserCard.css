@@ -1,0 +1,25 @@
+.usercard-container{
+    height: 20%;
+    width: 20%;
+    border: solid white 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.usercard-container h1{
+    padding: 1%;
+    margin: 0;
+    height: auto;
+    width: auto;
+    font-size: smaller;
+}
+.usercard-container h2{
+    font-size: x-small;
+    color: white;
+    text-decoration: none;
+}
+.usercard-container Link{
+    color: white;
+    text-decoration: none;
+}

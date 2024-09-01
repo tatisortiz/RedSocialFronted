@@ -1,40 +1,41 @@
-import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { getAllPosts } from "../../Services/apiCalls";
-import { useAuth } from "../../contexts/AuthContexts";
+import { useParams } from 'react-router-dom';
+import "./UserPosts.css"
 import { WorldPost } from "../../components/Post/WorldPost";
-import "./AllPosts.css";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { getPostByUserId } from "../../Services/apiCalls";
 
-export const AllPosts = () => {
+
+export const UserPosts = () => {
+    const { userId, firstname, lastname } = useParams();
     const [posts, setPosts] = useState([]);
     const navigate = useNavigate();
     const passport  = JSON.parse(localStorage.getItem('passport'));
     const token = passport ? passport.token : null;
-    let statusPosts=null
 
     useEffect(() => {
       if (!token) {
           navigate('/login');
           return;
       }else{
-        const bringAllPosts = async () => {
-          try {
-              const AllPosts = await getAllPosts(token);
-              if (AllPosts.success) {
-                  setPosts(AllPosts.data);
-              } else {
-                statusPosts=0
-              }
-          } catch (error) {
-              console.error("Error fetching posts:", error);
-              navigate('/login');
-          }
+        
+        const bringPostUserById = async (id) => {
+            try {
+                const AllPostUser = await getPostByUserId(id, token);
+                if (AllPostUser.success) {
+                    setPosts(AllPostUser.data);
+                } else {
+                    console.error("Error fetching posts for user:", AllPostUser.message);
+                }
+            } catch (error) {
+                console.error("Error fetching posts for user:", error);
+                navigate('/login');
+            }
         };
-        bringAllPosts();        
+        bringPostUserById(userId);
       }
-  }, [navigate, token]);
-
-    return (
+  }, []);
+    return(<> 
         <div className="all-posts-body">
           <div className="all-posts-wrapper">
             <div className="all-posts-container">
@@ -45,7 +46,7 @@ export const AllPosts = () => {
                         key={post._id}
                         userId={post.user_id._id}
                         postId={post._id}
-                        name={post.user_id.first_name+" "+post.user_id.last_name}
+                        name={firstname+" "+lastname    }
                         title={post.title} 
                         content={post.description}
                         likes={post.likes}
@@ -66,6 +67,5 @@ export const AllPosts = () => {
               
           </div>
         </div>
-      );
-    };
-    
+    </>);
+}

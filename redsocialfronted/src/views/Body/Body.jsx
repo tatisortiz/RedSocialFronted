@@ -8,7 +8,8 @@ import { Home } from '../Home/Home';
 import { MyPosts } from '../MyPost/MyPost';
 import { AllPosts } from '../Allposts/AllPosts';
 import { NotFound } from '../NotFound/NotFound';
-
+import { Admin } from '../Admin/Admin';
+import { UserPosts } from '../UserPosts/UserPosts';
 
 
 
@@ -29,6 +30,8 @@ export const Body = () => {
         <Route path="/createPost" element={<CreatePost />} /> 
         <Route path="/myPosts" element={<MyPosts />} /> 
         <Route path="/worldPosts" element={<AllPosts />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/userPosts/:userId/:firstname/:lastname" element={<UserPosts />} />
       </Routes>
     </>
   );
