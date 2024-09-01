@@ -9,20 +9,23 @@ export const Post = ({
     return (
         <>
             <div className="post-container">
-                <div className="post-header">
-                    <span className="post-name">{name}</span>
-                    <span className="post-email">{email}</span>
-                </div>
-                <div className="post-div">
-                    <span className="post-title">{title}</span>
-                    <div className="post-content">
-                        {content}
+                <div className="post-container-div">
+                    <div className="post-header">
+                        <span className="post-name">{name}</span>
+                        <span className="post-email">{email}</span>
                     </div>
-                    <div className="post-footer-content">
-                        <button className="post-like">Like</button>
+                    <div className="post-div">
+                        <span className="post-title">{title}</span>
+                        <div className="post-content">
+                            {content}
+                        </div>
+                        <div className="post-footer-content">
+                            <button className="post-like">Like</button>
+                        </div>
                     </div>
                 </div>
             </div>
+        
         </>
     );
 };

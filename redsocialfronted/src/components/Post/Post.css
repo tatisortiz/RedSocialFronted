@@ -7,15 +7,21 @@
     padding: 20px;
     border: solid 1px white;
 }
-.post-header{
-    height: 20%;
+.post-container{
+    height: auto;
     width: 100%;
+    background-color: #282828;
+    border-radius: 30px;
+    padding: 20px;
     border: solid 1px white;
+}
+.post-header{
+    height: auto;
+    width: 100%;
     display: flex;
     justify-content: center;
     flex-direction: column;
     flex-wrap: wrap;
-    gap: 5px;
     padding: 0;
 }
 .post-div{
@@ -24,19 +30,32 @@
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    gap: 5px;
     padding: 0;
-    border: solid 1px white;
-}
-.post-name, .post-email, .post-title, .post-content{
-    border: solid 1px white;
 }
 .post-name, .post-email{
     height: 40%;
     width: 100%;
+    padding: 0;
     font-family: sans-serif;
 }
+.post-name{
+    height: auto;
+    font-size: larger;
+}
+.post-email{
+    height: auto;
+    font-size: small;
+    padding-left: 10px;
+    font-style: italic;
+    color: rgba(255, 255, 255, 0.605);
+}
 .post-title{
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    font-size: large;
+    font-weight: 500;
+    font-style: normal;
     width: 100%;
     height: 15%;
     overflow-x: hidden;
@@ -45,11 +64,15 @@
 }
 .post-content{
     width: 100%;
-    height: 60%;
+    min-height: auto;
+    max-height: 60%;
     padding: 0;
     font-family: sans-serif;
     overflow-x: hidden;
     overflow-y: auto;
+    font-size: small;
+    padding: 15px;
+    padding-top: 0;
 }
 .post-footer-content{
     height: 20%;
@@ -65,4 +88,13 @@
     font-weight: 500;
     font-size:small;
     color: white;
+    cursor: pointer;
+}
+.post-liked{
+    background-color: white;
+    color: black;
+}
+.post-like:hover{
+    background-color: white;
+    color: black;
 }
