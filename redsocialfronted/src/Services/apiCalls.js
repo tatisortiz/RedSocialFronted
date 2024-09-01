@@ -139,3 +139,34 @@ export const updatePosts = async (id, data, token) => {
         throw error;
     }
 }
+export const likePostById = async (id, token) => {
+    try {
+        
+        const response = await fetch(`${URL}/api/posts/like/${id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            },
+        });
+        return await response.json()
+    } catch (error) {
+        console.error("Error updating post likes:", error);
+        throw error;
+    }
+}
+export const getPostById = async (id,token) => {
+    try {
+        const response = await fetch(`${URL}/api/posts/${id}`, { 
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}`
+            }
+        });
+        return await response.json();
+    } catch (error) {
+        console.error("Error getting post by id:", error);
+        throw error;
+    }
+}
