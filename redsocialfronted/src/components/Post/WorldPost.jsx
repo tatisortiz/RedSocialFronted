@@ -59,20 +59,19 @@ export const WorldPost = ({
     };
 
     return (
-            <div className="post-container">
-                <div className="post-container-div">
-                    <div className="post-header">
-                        <span className="post-name">{name}</span>
-                        <span className="post-email">{email}</span>
+            <div className="allPost-container">
+                <div className="allPost-container-div">
+                    <div className="allPost-header">
+                        <span className="allPost-name">{name}</span>
                     </div>
-                    <div className="post-div">
-                        <span className="post-title">{title}</span>    
-                        <div className="post-content">
+                    <div className="allPost-div">
+                        <span className="allPost-title">{title}</span>    
+                        <div className="allPost-content">
                             {content}
                         </div>
-                        <div className="post-footer-content">
+                        <div className="allPost-footer-content">
                             <button className={buttonClassNameLike} onClick={handleClick}>
-                                <span>{text} - {count}</span>
+                                <span>{text} - {count} </span>
                             </button>
                         </div>
                     </div>

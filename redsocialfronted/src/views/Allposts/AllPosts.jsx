@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllPosts } from "../../Services/apiCalls";
 import { useAuth } from "../../contexts/AuthContexts";
-import { Post } from "../../components/Post/Post";
+import { WorldPost } from "../../components/Post/WorldPost";
 import "./AllPosts.css";
 
 export const AllPosts = () => {
@@ -41,7 +41,7 @@ export const AllPosts = () => {
               {posts.length ? (
                 <div className="allList">
                     {posts.map((post) => (
-                      <Post
+                      <WorldPost
                         key={post._id}
                         userId={post.user_id._id}
                         postId={post._id}

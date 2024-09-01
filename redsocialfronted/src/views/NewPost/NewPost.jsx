@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { createPost } from "../../Services/apiCalls";
-
+import "./NewPost.css";
 export const CreatePost = () => {
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -38,32 +38,36 @@ export const CreatePost = () => {
   
     return (
       <div className="create-post">
-        <h2>Crear Nuevo Post</h2>
-        {error && <p className="error">{error}</p>}
-        <form onSubmit={handleSubmit}>
-          <div className="form-group">
-            <label htmlFor="title">Título</label>
-            <input
-              type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              required
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="content">Contenido</label>
-            <textarea
-              id="content"
-              value={content}
-              onChange={(e) => setContent(e.target.value)}
-              required
-            />
-          </div>
-          <button type="submit" disabled={loading}>
-            {loading ? 'Creando...' : 'Crear Post'}
-          </button>
-        </form>
+        <div className="create-post-container">
+          <h2>Crear Nuevo Post</h2>
+          {error && <p className="error">{error}</p>}
+          <form className="form" onSubmit={handleSubmit}>
+            <div className="form-group-title">
+              <label htmlFor="title">Título</label>
+              <input
+                type="text"
+                id="title"
+                className="title-input"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                required
+              />
+            </div>
+            <div className="form-group-content">
+              <label htmlFor="content">Contenido</label>
+              <textarea
+                id="content"
+                className="description"
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                required
+              />
+            </div>
+            <button className="button-form" type="submit" disabled={loading}>
+              {loading ? 'Creando...' : 'Crear Post'}
+            </button>
+          </form>
+        </div>
       </div>
     );
   };
