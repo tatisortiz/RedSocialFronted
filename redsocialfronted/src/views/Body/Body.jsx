@@ -6,6 +6,7 @@ import { Profile } from '../Profile/Profile';
 import { CreatePost } from '../NewPost/NewPost';
 import { Home } from '../Home/Home';
 import { MyPosts } from '../MyPost/MyPost';
+import { AllPosts } from '../Allposts/AllPosts';
 import { NotFound } from '../NotFound/NotFound';
 
 
@@ -26,10 +27,8 @@ export const Body = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/createPost" element={<CreatePost />} /> 
-        <Route path="/myPosts" element={<MyPosts />} />
-       
-      
- 
+        <Route path="/myPosts" element={<MyPosts />} /> 
+        <Route path="/worldPosts" element={<AllPosts />} />
       </Routes>
     </>
   );
