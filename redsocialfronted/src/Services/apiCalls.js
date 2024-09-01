@@ -77,7 +77,7 @@ export const updateProfile = async (data,token) => {
 }
 export const getAllPosts = async (token) => {
     try {
-        const response = await fetch(`${URL}`, {
+        const response = await fetch(`${URL}/api/posts`, {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
@@ -170,3 +170,5 @@ export const getPostById = async (id,token) => {
         throw error;
     }
 }
+
+

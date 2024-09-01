@@ -178,11 +178,8 @@ export const Post = ({
                                         onClick={deletePostHandler}>
                                             <span>Delete</span>
                                     </button></>
-
                                 )
-                            }
-
-                            
+                            }    
                         </div>
                     </div>
                 </div>
