@@ -1,50 +1,56 @@
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Header.css";
-import { useEffect } from "react";
 
 export const Header = () => {
     const navigate = useNavigate();
     const passport = JSON.parse(localStorage.getItem("passport"));
     const role = passport?.tokenData.role; 
     const token = passport?.token;
+    
+    const [menuOpen, setMenuOpen] = useState(false);
+
+    const handleNavLinkClick = (path) => {
+        setMenuOpen(false);
+        navigate(path);
+    };
 
     const logOut = () => {
         localStorage.removeItem("passport");
-        navigate("/login");
+        handleNavLinkClick("/login");
     };
-
 
     return (
         <header className="header">
-            <div className="header-div">
+            <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
+                ☰
+            </div>
+            <div className={`header-div ${menuOpen ? "open" : ""}`}>
                 {!token ? (
                     <>
-                        <NavLink to="/" className="nav-link">Home</NavLink>
-                        <NavLink to="/register" className="nav-link">Register</NavLink>
-                        <NavLink to="/login" className="nav-link">Login</NavLink>
+                        <div className="nav-link" onClick={() => handleNavLinkClick("/")}>Home</div>
+                        <div className="nav-link" onClick={() => handleNavLinkClick("/register")}>Register</div>
+                        <div className="nav-link" onClick={() => handleNavLinkClick("/login")}>Login</div>
                     </>
                 ) : (
                     <>
                         {role === "super_admin" ? (
-                           <>
-                           <NavLink to="/admin" className="nav-link">Admin</NavLink>
-                            <NavLink to="/worldPosts" className="nav-link">WorldPosts</NavLink>
-                            <NavLink to="/profile" className="nav-link">MyProfile</NavLink>
-                            <NavLink to="/login" className="nav-link" onClick={logOut}>Logout</NavLink>
-                        </>
-                        ):(<>
-                            <NavLink to="/worldPosts" className="nav-link">WorldPosts</NavLink>
-                            <NavLink to="/profile" className="nav-link">MyProfile</NavLink>
-                            <NavLink to="/login" className="nav-link" onClick={logOut}>Logout</NavLink>
-                        </>
+                            <>
+                                <div className="nav-link" onClick={() => handleNavLinkClick("/admin")}>Admin</div>
+                                <div className="nav-link" onClick={() => handleNavLinkClick("/worldPosts")}>WorldPosts</div>
+                                <div className="nav-link" onClick={() => handleNavLinkClick("/profile")}>MyProfile</div>
+                                <div className="nav-link" onClick={logOut}>Logout</div>
+                            </>
+                        ) : (
+                            <>
+                                <div className="nav-link" onClick={() => handleNavLinkClick("/worldPosts")}>WorldPosts</div>
+                                <div className="nav-link" onClick={() => handleNavLinkClick("/profile")}>MyProfile</div>
+                                <div className="nav-link" onClick={logOut}>Logout</div>
+                            </>
                         )}
-                        
                     </>
                 )}
             </div>
-            
-          
         </header>
     );
 };
-

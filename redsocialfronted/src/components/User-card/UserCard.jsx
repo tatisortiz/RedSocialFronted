@@ -1,5 +1,4 @@
 import "./UserCard.css";
-import { useState, useEffect } from "react";
 export const UserCard = ({children,
     id="",
     firstName="",
@@ -7,11 +6,6 @@ export const UserCard = ({children,
     email="",
     posts=""
 }) => {
-    const [isVisible, setIsVisible] = useState(true);
-   
-    const handleDestroy = () => {
-        setIsVisible(false);
-    };
     return(
         isVisible &&(
                 <div className="usercard-container">     

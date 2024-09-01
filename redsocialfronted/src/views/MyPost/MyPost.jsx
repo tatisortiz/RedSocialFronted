@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { deletePostById, getMyPosts, updatePosts, getProfile } from "../../Services/apiCalls";
-import { useAuth } from "../../contexts/AuthContexts";
+import { useNavigate } from "react-router-dom";
+import { getMyPosts, getProfile } from "../../Services/apiCalls";
 import { Post } from "../../components/Post/Post";
 import "./MyPost.css";
 

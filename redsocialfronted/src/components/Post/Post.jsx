@@ -15,12 +15,10 @@ export const Post = ({
     const navigate = useNavigate();
     const passport = JSON.parse(localStorage.getItem('passport'));
     const token = passport ? passport.token : null;
-    const currentUserToken=passport?passport.tokenData._id:null;
-    const [editposts, setEditposts] = useState({
-        id: postId,
-    });
+    const currentUserToken = passport ? passport.tokenData._id : null;
+    const [editposts, setEditposts] = useState({ id: postId });
     const [editpostsupdate, setEditpostsupdate] = useState({
-        title:"",
+        title: "",
         description: "",
         id: null,
     });
@@ -30,22 +28,23 @@ export const Post = ({
     const [count, setCount] = useState(likes.length);
     const [isVisible, setIsVisible] = useState(true);
     const [currentEdit, setCurrentEdit] = useState(false);
-    
+
     useEffect(() => {
-        if (likes.includes(currentUserToken)){
-            setIsLiked(true)
-        }
-        else{
-            setIsLiked(false)
+        if (likes.includes(currentUserToken)) {
+            setIsLiked(true);
+        } else {
+            setIsLiked(false);
         }
         setEditpostsupdate({
-            description:content,
-            title:title
-        })
-      }, []);
+            description: content,
+            title: title,
+        });
+    }, []);
+
     const handleDestroy = () => {
         setIsVisible(false);
     };
+
     const handleClick = () => {
         likeButtonHandler();
     };
@@ -63,7 +62,6 @@ export const Post = ({
                 if (responsePost.success) {
                     setCount(responsePost.data.likes.length);
                     setIsLiked(responsePost.data.likes.includes(currentUserToken));
-                    
                 }
             } else {
                 console.error("Error updating post:", response.message);
@@ -78,37 +76,38 @@ export const Post = ({
         setCurrentEdit(!currentEdit);
         setEditpostsupdate({
             description: "",
-            title:""
+            title: ""
         });
     };
 
-    const saveButtonHandler  = async () => {
+    const saveButtonHandler = async () => {
         if (!userId) {
-            console.error(error);
+            console.error("User ID is missing");
             return;
         }
-        console.log(editpostsupdate)
         const response = await updatePosts(editposts.id, editpostsupdate, token);
         if (response.success) {
             const responsePost = await getPostById(editposts.id, token);
             if (responsePost.success) {
                 setEditpostsupdate({
-                    description:responsePost.data.description,
-                    title:responsePost.data.title
-                })
+                    description: responsePost.data.description,
+                    title: responsePost.data.title,
+                });
             }
-            setCurrentEdit(!currentEdit)
+            setCurrentEdit(!currentEdit);
         } else {
             console.error("Error updating post:", response.message);
         }
     };
+
     const editInputHandler = (e) => {
         setEditpostsupdate({
             ...editpostsupdate,
-            [e.target.name]: e.target.value
+            [e.target.name]: e.target.value,
         });
     };
-    const deletePostHandler = async (e) => {
+
+    const deletePostHandler = async () => {
         if (!token) {
             alert('You are not authorized to perform this action');
             navigate('/login');
@@ -117,15 +116,14 @@ export const Post = ({
         const id = postId;
         const res = await deletePostById(token, id);
         if (res.success) {
-            handleDestroy()
+            handleDestroy();
         } else {
             alert('Error deleting post. Verify your session');
         }
     };
 
-
     return (
-        isVisible &&(
+        isVisible && (
             <div className="post-container">
                 <div className="post-container-div">
                     <div className="post-header">
@@ -134,7 +132,7 @@ export const Post = ({
                     </div>
                     <div className="post-div">
                         {
-                            currentEdit?(
+                            currentEdit ? (
                                 <textarea
                                     type="text"
                                     name="title"
@@ -142,50 +140,49 @@ export const Post = ({
                                     placeholder="New title"
                                     onChange={editInputHandler}
                                     className="input-field-i-edit-title" />
-                            ):(
+                            ) : (
                                 <span className="post-title">{editpostsupdate.title}</span>
                             )
                         }
-                        {currentEdit ? (
+                        {
+                            currentEdit ? (
                                 <textarea
                                     type="text"
                                     placeholder="New description"
                                     value={editpostsupdate.description}
                                     name="description"
                                     onChange={editInputHandler}
-                                    className="input-field-i-edit-description"/>
-                                ) : (                                
-                            <div className="post-content">
-                                {editpostsupdate.description}
-                            </div>
-                            )}
+                                    className="input-field-i-edit-description" />
+                            ) : (
+                                <div className="post-content">
+                                    {editpostsupdate.description}
+                                </div>
+                            )
+                        }
                         <div className="post-footer-content">
-                            { currentEdit ?
-                                (
-                                    <button className="post-like"
-                                        onClick={() => saveButtonHandler()} >
+                            {
+                                currentEdit ? (
+                                    <button className="post-like" onClick={saveButtonHandler}>
                                         <span>Save</span>
                                     </button>
-                                ):(
+                                ) : (
                                     <>
-                                    <button className={buttonClassNameLike} onClick={handleClick}>
-                                        <span>{text} - {count}</span>
-                                    </button>
-                                    <button className="post-like"
-                                        onClick={() => editButtonHandler()}>
+                                        <button className={buttonClassNameLike} onClick={handleClick}>
+                                            <span>{text} - {count}</span>
+                                        </button>
+                                        <button className="post-like" onClick={editButtonHandler}>
                                             <span>Edit</span>
-                                    </button>
-                                    <button className="post-like"
-                                        onClick={deletePostHandler}>
+                                        </button>
+                                        <button className="post-like" onClick={deletePostHandler}>
                                             <span>Delete</span>
-                                    </button></>
+                                        </button>
+                                    </>
                                 )
-                            }    
+                            }
                         </div>
                     </div>
                 </div>
             </div>
         )
-
     );
 };

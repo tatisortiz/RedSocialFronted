@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { getAllPosts } from "../../Services/apiCalls";
-import { useAuth } from "../../contexts/AuthContexts";
 import { WorldPost } from "../../components/Post/WorldPost";
 import "./AllPosts.css";
 

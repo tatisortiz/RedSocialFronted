@@ -13,15 +13,10 @@ export const Profile = () => {
     first_name: "",
     last_name: "",
     email: "",
-    // password: "",
-   
-    
   });
   const [editData, setEditData] = useState({
     name: "",
     email: "",
-    // // password: "",
-    
   });
 
   const [editting, setEditting] = useState(false);
@@ -78,7 +73,7 @@ export const Profile = () => {
       const response = await updateProfile(editData, token);
       if (response.success) {
           setProfileData(editData);
-          setEditting(false);  // Salimos del modo de edición
+          setEditting(false);
       }
     }
 };
@@ -152,7 +147,7 @@ export const Profile = () => {
             className={editting ? "button" : "hidden"}
             emitOnClickButton={confirmButtonHandler}
           />
-          <Link to="/createPost" className="button button-createPost">Create Post</Link>
+          <Link to="/createPost" id="create-btn" className="button button-createPost">Create Post</Link>
         </div>
         <div className="profile-posts">
           <MyPosts>
