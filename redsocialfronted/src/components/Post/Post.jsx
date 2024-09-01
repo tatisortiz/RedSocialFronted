@@ -1,4 +1,4 @@
-import { getPostById, likePostById } from "../../Services/apiCalls";
+import { getPostById, likePostById, updatePosts, deletePostById} from "../../Services/apiCalls";
 import "./Post.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
@@ -15,19 +15,35 @@ export const Post = ({
     const navigate = useNavigate();
     const passport = JSON.parse(localStorage.getItem('passport'));
     const token = passport ? passport.token : null;
+
     const [editposts, setEditposts] = useState({
         id: postId,
+    });
+    const [editpostsupdate, setEditpostsupdate] = useState({
+        title:"",
+        description: "",
+        id: null,
     });
     const [isLiked, setIsLiked] = useState(false);
     const text = isLiked ? 'Liked' : 'Like';
     const buttonClassNameLike = isLiked ? 'post-like post-liked' : 'post-like';
     const [count, setCount] = useState(likes.length);
+    const [isVisible, setIsVisible] = useState(true);
+    const [currentEdit, setCurrentEdit] = useState(false);
+    
     useEffect(() => {
         setIsLiked(false)
         if (likes.includes(userId)){
             setIsLiked(!isLiked)
         }
+        setEditpostsupdate({
+            description:content,
+            title:title
+        })
       }, []);
+    const handleDestroy = () => {
+        setIsVisible(false);
+    };
     const handleClick = () => {
         setIsLiked(!isLiked);
         const updatedCount = isLiked ? count - 1 : count + 1;
@@ -57,26 +73,121 @@ export const Post = ({
         }
     };
 
+    const editButtonHandler = () => {
+        setCurrentEdit(!currentEdit);
+        setEditpostsupdate({
+            description: "",
+            title:""
+        });
+    };
+
+    const saveButtonHandler  = async () => {
+        if (!userId) {
+            console.error(error);
+            return;
+        }
+        console.log(editpostsupdate)
+        const response = await updatePosts(editposts.id, editpostsupdate, token);
+        if (response.success) {
+            const responsePost = await getPostById(editposts.id, token);
+            if (responsePost.success) {
+                setEditpostsupdate({
+                    description:responsePost.data.description,
+                    title:responsePost.data.title
+                })
+            }
+            setCurrentEdit(!currentEdit)
+        } else {
+            console.error("Error updating post:", response.message);
+        }
+    };
+    const editInputHandler = (e) => {
+        setEditpostsupdate({
+            ...editpostsupdate,
+            [e.target.name]: e.target.value
+        });
+    };
+    const deletePostHandler = async (e) => {
+        if (!token) {
+            alert('You are not authorized to perform this action');
+            navigate('/login');
+            return;
+        }
+        const id = postId;
+        const res = await deletePostById(token, id);
+        if (res.success) {
+            handleDestroy()
+        } else {
+            alert('Error deleting post. Verify your session');
+        }
+    };
+
+
     return (
-        <div className="post-container">
-            <div className="post-container-div">
-                <div className="post-header">
-                    <span className="post-name">{name}</span>
-                    <span className="post-email">{email}</span>
-                </div>
-                <div className="post-div">
-                    <span className="post-title">{title}</span>
-                    <div className="post-content">
-                        {content}
+        isVisible &&(
+            <div className="post-container">
+                <div className="post-container-div">
+                    <div className="post-header">
+                        <span className="post-name">{name}</span>
+                        <span className="post-email">{email}</span>
                     </div>
-                    <div className="post-footer-content">
-                        <button className={buttonClassNameLike} onClick={handleClick}>
-                            <span>{text}</span>
-                            <span>{count}</span>
-                        </button>
+                    <div className="post-div">
+                        {
+                            currentEdit?(
+                                <textarea
+                                    type="text"
+                                    name="title"
+                                    value={editpostsupdate.title}
+                                    placeholder="New title"
+                                    onChange={editInputHandler}
+                                    className="input-field-i-edit-title" />
+                            ):(
+                                <span className="post-title">{editpostsupdate.title}</span>
+                            )
+                        }
+                        {currentEdit ? (
+                                <textarea
+                                    type="text"
+                                    placeholder="New description"
+                                    value={editpostsupdate.description}
+                                    name="description"
+                                    onChange={editInputHandler}
+                                    className="input-field-i-edit-description"/>
+                                ) : (                                
+                            <div className="post-content">
+                                {editpostsupdate.description}
+                            </div>
+                            )}
+                        <div className="post-footer-content">
+                            { currentEdit ?
+                                (
+                                    <button className="post-like"
+                                        onClick={() => saveButtonHandler()} >
+                                        <span>Save</span>
+                                    </button>
+                                ):(
+                                    <>
+                                    <button className={buttonClassNameLike} onClick={handleClick}>
+                                        <span>{text} - {count}</span>
+                                    </button>
+                                    <button className="post-like"
+                                        onClick={() => editButtonHandler()}>
+                                            <span>Edit</span>
+                                    </button>
+                                    <button className="post-like"
+                                        onClick={deletePostHandler}>
+                                            <span>Delete</span>
+                                    </button></>
+
+                                )
+                            }
+
+                            
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        )
+
     );
 };
