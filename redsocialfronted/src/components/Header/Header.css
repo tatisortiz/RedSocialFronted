@@ -5,7 +5,10 @@
     align-items: center;
     font-size: medium;
     font-weight: 400;
-    justify-content:end;
+    margin: 0;
+    padding: 0;
+    justify-content: end;
+    border-bottom: solid 1px white;
 }
 .header-div{
     height: 100%;

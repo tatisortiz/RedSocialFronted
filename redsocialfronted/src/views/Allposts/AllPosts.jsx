@@ -10,7 +10,7 @@ export const AllPosts = () => {
     const navigate = useNavigate();
     const passport  = JSON.parse(localStorage.getItem('passport'));
     const token = passport ? passport.token : null;
-    let statusPosts=null
+    let statusPosts=null;
 
     useEffect(() => {
       if (!token) {

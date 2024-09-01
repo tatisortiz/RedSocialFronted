@@ -78,7 +78,7 @@ export const Admin = () => {
                     email={user.email}
                     posts={bringPostsUser(user._id).length}
                 >
-                    <h2><Link to={`/userPosts/${user._id}/${user.first_name}/${user.last_name}`}>View Posts</Link></h2>
+                    <h2><Link className="link-user-container" to={`/userPosts/${user._id}/${user.first_name}/${user.last_name}`}>View Posts</Link></h2>
                 </UserCard>
             
             ))}

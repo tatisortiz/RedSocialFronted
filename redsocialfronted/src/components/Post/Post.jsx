@@ -15,7 +15,7 @@ export const Post = ({
     const navigate = useNavigate();
     const passport = JSON.parse(localStorage.getItem('passport'));
     const token = passport ? passport.token : null;
-
+    const currentUserToken=passport?passport.tokenData._id:null;
     const [editposts, setEditposts] = useState({
         id: postId,
     });
@@ -24,7 +24,7 @@ export const Post = ({
         description: "",
         id: null,
     });
-    const [isLiked, setIsLiked] = useState(false);
+    const [isLiked, setIsLiked] = useState(likes.includes(currentUserToken));
     const text = isLiked ? 'Liked' : 'Like';
     const buttonClassNameLike = isLiked ? 'post-like post-liked' : 'post-like';
     const [count, setCount] = useState(likes.length);
@@ -32,9 +32,11 @@ export const Post = ({
     const [currentEdit, setCurrentEdit] = useState(false);
     
     useEffect(() => {
-        setIsLiked(false)
-        if (likes.includes(userId)){
-            setIsLiked(!isLiked)
+        if (likes.includes(currentUserToken)){
+            setIsLiked(true)
+        }
+        else{
+            setIsLiked(false)
         }
         setEditpostsupdate({
             description:content,
@@ -45,9 +47,6 @@ export const Post = ({
         setIsVisible(false);
     };
     const handleClick = () => {
-        setIsLiked(!isLiked);
-        const updatedCount = isLiked ? count - 1 : count + 1;
-        setCount(updatedCount);
         likeButtonHandler();
     };
 
@@ -63,6 +62,8 @@ export const Post = ({
                 const responsePost = await getPostById(editposts.id, token);
                 if (responsePost.success) {
                     setCount(responsePost.data.likes.length);
+                    setIsLiked(responsePost.data.likes.includes(currentUserToken));
+                    
                 }
             } else {
                 console.error("Error updating post:", response.message);
