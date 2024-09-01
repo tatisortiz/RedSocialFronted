@@ -2,12 +2,16 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getProfile, updateProfile } from "../../Services/apiCalls";
 import { CInput } from '../../components/CInput/CInput.jsx';
+import { MyPosts } from "../MyPost/MyPost.jsx";
 
+import { Link } from "react-router-dom";
+import "./Profile.css";
 
 
 export const Profile = () => {
   const [profileData, setProfileData] = useState({
-    name: "",
+    first_name: "",
+    last_name: "",
     email: "",
     // password: "",
    
@@ -33,20 +37,31 @@ export const Profile = () => {
       const bringMyProfile = async () => {
         const response = await getProfile(passport.token);
         setProfileData(response.data);
-        console.log(response.data)
       }
       bringMyProfile();
     }
   }, [passport]);
 
+
   const editButtonHandler = () => {
-    setEditData({
-      name: profileData.name,
-      email: profileData.email,
-      // email: profileData.password,
-      
-    });
+    if (editting) {
+        setEditData({
+            first_name:"",
+            last_name:"",
+            name: "",
+            email: "",
+            password:""
+        });
+    } else {
+        setEditData({
+            first_name:profileData.first_name,
+            last_name:profileData.last_name,
+            email: profileData.email,
+            password: profileData.password
+        });
+    }
     setEditting(!editting);
+    console.log(editting)
   };
 
   const editInputHandler = (e) => {
@@ -57,64 +72,95 @@ export const Profile = () => {
   };
 
   const confirmButtonHandler = async () => {
-    const response = await updateProfile(editData, token);
-    if (response.success) {
-      setProfileData(editData);
-      
+    if(editData.email==""||editData.password==""){
+      alert("email o password no empty")
+    }else{
+      const response = await updateProfile(editData, token);
+      if (response.success) {
+          setProfileData(editData);
+          setEditting(false);  // Salimos del modo de edición
+      }
     }
-  };
+};
 
   return (
-    <div className="profile">
-      <h2>Profile</h2>
-      <p className={editting ? "hidden" : ""}>
-        Name: {profileData.first_name ? profileData.first_name + " "+profileData.last_name : "not available"}
-      </p>
-      <CInput
-        type="text"
-        name="name"
-        placeholder="name"
-        className={editting ? "" : "hidden"}
-        emitFunction={editInputHandler}
-        value={editData.name}
-      />
-         <p className={editting ? "hidden" : ""}>
-        Email: {profileData.email}
-      </p>
-
-       <CInput
-        type="text"
-        name="email"
-        placeholder="email"
-        className={editting ? "" : "hidden"}
-        emitFunction={editInputHandler}
-        value={editData.email}
-      />
-    
-      {/* {<CInput
-        type="password"
-        name="password" 
-        placeholder="password"
-        className={editting ? "" : "hidden"}
-        emitFunction={editInputHandler}
-        value={editData.passport}
-      /> } */}
-      
-   
-    
-      <CInput
-        type="button"
-        name="edit"
-        value={editting ? "cancel" : "edit"}
-        emitOnClickButton={editButtonHandler}
-      />
-      <CInput
-        type="button"
-        name="save"
-        value="save"
-        className={editting ? "" : "hidden"}
-        emitOnClickButton={confirmButtonHandler}
-      />
+    <>
+    <div className="profile-container">
+      <div className="banner">  
+        My WallyPosts    
+      </div>
+      <div className="profile">
+        <div className="profile-user-information">         
+          <p className={editting ? "hidden" : "p-information"}>
+            My FirstName:<a>{profileData.first_name!="" ? profileData.first_name:"not available"}</a>
+          </p>  
+          <p className={editting ? "hidden" : "p-information"}>
+            My Lastname:<a>{profileData.last_name!="" ? profileData.last_name:"not available"}</a>
+          </p>  
+          <p className={editting ? "hidden" : "p-information"}>
+            My Name:<a> {profileData.first_name!="" ? profileData.first_name + " "+profileData.last_name : "not available"}</a>
+          </p>  
+          <p className={editting ? "hidden" : "p-information"}>
+            Email: <a>{profileData.email}</a>
+          </p>
+          <p className={editting?"p-information":"hidden"}>
+            Edit your information here!
+          </p>
+          <CInput
+          type="text"
+          name="first_name"
+          placeholder="FirstName"
+          className={editting ? "input-field-i" : "hidden"}
+          emitFunction={editInputHandler}
+          value={editData.first_name}
+          />
+          <CInput
+            type="text"
+            name="last_name"
+            placeholder="LastName"
+            className={editting ? "input-field-i" : "hidden"}
+            emitFunction={editInputHandler}
+            value={editData.last_name}
+          />
+          <CInput
+            type="text"
+            name="email"
+            placeholder="email"
+            className={editting ? "input-field-i" : "hidden"}
+            emitFunction={editInputHandler}
+            value={editData.email}
+          />  
+          <CInput
+            type="password"
+            name="password" 
+            placeholder="password"
+            className={editting ? "input-field-i" : "hidden"}
+            emitFunction={editInputHandler}
+            value={editData.passport}
+          /> 
+          <CInput
+            type="button"
+            name="edit"
+            className="button"
+            value={editting ? "Cancel" : "Edit"}
+            emitOnClickButton={editButtonHandler}
+          />
+          <CInput
+            type="button"
+            name="save"
+            value="Save"
+            className={editting ? "button" : "hidden"}
+            emitOnClickButton={confirmButtonHandler}
+          />
+          <Link to="/createPost" className="button button-createPost">Create Post</Link>
+        </div>
+        <div className="profile-posts">
+          <MyPosts>
+          </MyPosts>
+        </div>
+      </div>
     </div>
+
+    </>
   );
 };

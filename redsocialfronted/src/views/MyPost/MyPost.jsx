@@ -111,7 +111,6 @@ export const MyPosts = () => {
         <div className="my-posts-body">
           <div className="my-posts-wrapper">
             <div className="my-posts-container">
-              <h1 className="my-posts-title">My Posts Dashboard</h1>
               {posts.length ? (
                 <div className="list">
                     {posts.map((post) => (
@@ -136,7 +135,6 @@ export const MyPosts = () => {
                 </div>
               )}
             </div>
-            <Link to="/createPost" className="create-post-link">Create Post</Link>
 
           </div>
         </div>
