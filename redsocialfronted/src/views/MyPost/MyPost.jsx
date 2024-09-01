@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { deletePostById, getMyPosts, updatePosts } from "../../Services/apiCalls";
 import { useAuth } from "../../contexts/AuthContexts";
-
+import { Post } from "../../components/Post/Post";
+import "./MyPost.css";
 
 export const MyPosts = () => {
     const [posts, setPosts] = useState([]);
@@ -88,95 +89,88 @@ export const MyPosts = () => {
     };
 
     return (
-        <div className="my-posts-wrapper">
-          <div className="my-posts-container">
-            <h1>My Posts Dashboard</h1>
-            {posts.length ? (
-              <div className="table-responsive">
-                <table className="table custom-table">
-                  <thead>
-                    <tr>
-                      <th>Title</th>
-                      <th>Description</th>
-                      <th>Edit</th>
-                      <th>Delete</th>
-                    </tr>
-                  </thead>
-                  <tbody>
+        <div className="my-posts-body">
+          <div className="my-posts-wrapper">
+            <div className="my-posts-container">
+              <h1 className="my-posts-title">My Posts Dashboard</h1>
+              {posts.length ? (
+                <div className="list">
                     {posts.map((post) => (
-                      <tr key={post._id}>
-                        <td>
-                          {currentEditId === post._id && editting ? (
-                            <input
-                              type="text"
-                              name="title"
-                              value={editposts.title}
-                              onChange={editInputHandler}
-                              className="form-control edit-input"
-                            />
-                          ) : (
-                            post.title || 'Not available'
-                          )}
-                        </td>
-                        <td>
-                          {currentEditId === post._id && editting ? (
-                            <input
-                              type="text"
-                              name="description"
-                              value={editposts.description}
-                              onChange={editInputHandler}
-                              className="form-control edit-input"
-                            />
-                          ) : (
-                            post.description || 'Not available'
-                          )}
-                        </td>
-                        <td>
-                          {currentEditId === post._id && editting ? (
-                            <button
-                              type="button"
-                              onClick={confirmButtonHandler}
-                              className="btn btn-save"
-                            >
-                              Save
-                            </button>
-                          ) : (
-                            <button
-                              type="button"
-                              onClick={() => editButtonHandler(post)}
-                              className="btn btn-edit"
-                            >
-                              Edit
-                            </button>
-                          )}
-                        </td>
-                        <td>
-                          <button
-                            type="button"
-                            name={post._id}
-                            onClick={deletePostHandler}
-                            className="btn btn-delete"
-                          >
-                            Delete
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-                
-                <Link to="/createPost" className="create-post-link">Create Post</Link>
-              </div>
-            ) : (
-              <div className="no-posts-wrapper">
-                <div className="no-posts-container">
-                  <p className="no-posts-message">No posts found.</p>
-                  <p className="create-post-message">Why not create one?</p>
-                  <Link to="/createPost" className="create-post-link">Create Post</Link>
+                      <Post
+                        key={post._id}
+                        title={post.title} 
+                        content={post.description}
+                      />
+                      ))}                
                 </div>
-              </div>
-            )}
+              ) : (
+                <div className="no-posts-wrapper">
+                  <div className="no-posts-container">
+                    <p className="no-posts-message">No posts found.</p>
+                    <p className="create-post-message">Why not create one?</p>
+                    </div>
+                </div>
+              )}
+            </div>
+            <Link to="/createPost" className="create-post-link">Create Post</Link>
+
           </div>
         </div>
       );
     };
+    /* 
+    <tr key={post._id}>
+      <td>
+        {currentEditId === post._id && editting ? (
+          <input
+            type="text"
+            name="title"
+            value={editposts.title}
+            onChange={editInputHandler}
+            className="form-control edit-input" />
+        ) : (
+          post.title || 'Not available'
+        )}
+      </td>
+      <td>
+        {currentEditId === post._id && editting ? (
+          <input
+            type="text"
+            name="description"
+            value={editposts.description}
+            onChange={editInputHandler}
+            className="form-control edit-input" />
+        ) : (
+          post.description || 'Not available'
+        )}
+      </td>
+      <td>
+        {currentEditId === post._id && editting ? (
+          <button
+            type="button"
+            onClick={confirmButtonHandler}
+            className="btn btn-save"
+          >
+            Save
+          </button>
+        ) : (
+          <button
+            type="button"
+            onClick={() => editButtonHandler(post)}
+            className="btn btn-edit"
+          >
+            Edit
+          </button>
+        )}
+      </td>
+      <td>
+        <button
+          type="button"
+          name={post._id}
+          onClick={deletePostHandler}
+          className="btn btn-delete"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>*/
