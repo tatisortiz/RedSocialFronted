@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { deletePostById, getMyPosts, updatePosts } from "../../Services/apiCalls";
+import { deletePostById, getMyPosts, updatePosts, getProfile } from "../../Services/apiCalls";
 import { useAuth } from "../../contexts/AuthContexts";
 import { Post } from "../../components/Post/Post";
 import "./MyPost.css";
@@ -11,6 +11,11 @@ export const MyPosts = () => {
         title:"",
         description: "",
         id: null,
+    });
+    const [profileData, setProfileData] = useState({
+      first_name: "",
+      last_name: "",
+      email: "",
     });
     const [editting, setEditing] = useState(false);
     const [currentEditId, setCurrentEditId] = useState(null);
@@ -23,21 +28,35 @@ export const MyPosts = () => {
       if (!token) {
           navigate('/login');
           return;
-      }
-      const bringMyPosts = async () => {
-        try {
-            const MyPosts = await getMyPosts(token);
-            if (MyPosts.success) {
-                setPosts(MyPosts.data);
-            } else {
-              statusPosts=0
+      }else{
+        const bringMyPosts = async () => {
+          try {
+              const MyPosts = await getMyPosts(token);
+              if (MyPosts.success) {
+                  setPosts(MyPosts.data);
+              } else {
+                statusPosts=0
+              }
+          } catch (error) {
+              console.error("Error fetching posts:", error);
+              navigate('/login');
+          }
+        };
+        bringMyPosts();
+        
+        const bringMyProfile = async () => {
+          try{
+            const response = await getProfile(passport.token);
+            if(response.success){
+              setProfileData(response.data);
             }
-        } catch (error) {
-            console.error("Error fetching posts:", error);
+          }catch(error){
+            console.error("Error fetching profile:", error);
             navigate('/login');
+          }
         }
-      };
-      bringMyPosts();
+        bringMyProfile();
+      }
   }, [navigate, token]);
 
     const editInputHandler = (e) => {
@@ -98,6 +117,8 @@ export const MyPosts = () => {
                     {posts.map((post) => (
                       <Post
                         key={post._id}
+                        email={profileData.email}
+                        name={profileData.first_name+" "+profileData.last_name}
                         title={post.title} 
                         content={post.description}
                       />

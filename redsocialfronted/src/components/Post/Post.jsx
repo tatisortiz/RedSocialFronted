@@ -18,6 +18,9 @@ export const Post = ({
                     <div className="post-content">
                         {content}
                     </div>
+                    <div className="post-footer-content">
+                        <button className="post-like">Like</button>
+                    </div>
                 </div>
             </div>
         </>
