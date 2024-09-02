@@ -1,0 +1,91 @@
+.create-post{
+    height: 87%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.create-post-container{
+    height: 80%;
+    width: 50%;
+    border-radius: 20px;
+    padding: 10px;
+    box-shadow: 5px 5px 5px black;
+    background-color: #282828;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content:space-around;
+    align-items: center;
+}
+.create-post-container h2{
+    height: 15%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: white solid 1px;
+    background-color: #282828;
+    margin: 0;
+}
+.form{
+    height: 70%;
+    width: 100%;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+}
+.form-group-title{
+    height: 20%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.form-group-content{
+    height: 60%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.form-group-content label{
+    width: 90%;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-left: 2%;
+}
+.title-input, .description{
+    padding: 10px;
+    background-color: #333;
+    color: #fff;
+    border: white 1px solid;
+    cursor: pointer;
+    overflow-y: auto; 
+    white-space: pre-wrap;
+    line-height: 1.5;
+    resize: none;   
+    box-sizing: border-box;
+}
+.description{
+    margin-left: 3%;
+    width: 93%;
+    height: 75%;
+}
+.title-input{
+    width: 80%;
+}
+.button-form{
+    width: 93%;
+    height: 10%;
+    background-color: #282828;
+    border: white solid 1px;
+    color: white;
+    transition: background-color ease-in 0.3s;
+}
+.button-form:hover{
+    background-color: white;
+    color: black;
+}

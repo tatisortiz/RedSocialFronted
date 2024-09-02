@@ -1,0 +1,53 @@
+.usercard-container{
+    padding: 20px;
+    border: solid white 1px;
+    border-radius: 20px;
+    box-shadow: 10px 10px 10px white;
+    display: inline-block;
+    text-align: left;
+    transition: transform ease-in 0.3s;
+}
+.usercard-container:hover{
+    transform: scale(105%);
+}
+.usercard-container h1{
+    padding: 1%;
+    margin: 0;
+    height: auto;
+    width: auto;
+    font-size:80%;
+    word-wrap: break-word; 
+    word-break: break-all; 
+    white-space: normal;
+}
+.link-user-container {
+    font-size: small;
+    color: white;
+    border: 1px solid white;
+    padding: 10px;
+    text-decoration: none;
+    transition: transform ease-in 0.3s;
+    transition: background-color ease-in 0.3s;
+    cursor: pointer;
+}
+.link-user-container:hover{
+    background-color: white;
+    color: black;
+    transform: scale(105%);
+}
+.usercard-container-delete{
+    font-size: small;
+    background-color: transparent;
+    color: white;
+    border: 1px solid white;
+    padding: 10px;
+    text-decoration: none;
+    transition: transform ease-in 0.3s;
+    transition: background-color ease-in 0.3s;
+    cursor: pointer;
+}
+.usercard-container-delete:hover{
+    background-color: rgba(255, 0, 0, 0.744);
+    color: white;
+    transform: scale(105%);
+}

@@ -1,0 +1,84 @@
+.my-posts-body {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.my-posts-wrapper {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    max-width: 1200px; 
+}
+
+.my-posts-container {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.list {
+    box-shadow: inset 0px 5px 10px black;
+    height: 95%;
+    padding: 10px;
+    padding-top: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: auto;
+    overflow-x: hidden;
+    gap: 20px;
+}
+
+.list::-webkit-scrollbar {
+    width: 8px; 
+}
+
+.list::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+    border-radius: 10px;
+}
+
+.list::-webkit-scrollbar-thumb {
+    background: #888; 
+    border-radius: 10px;
+}
+
+.list::-webkit-scrollbar-thumb:hover {
+    background: #555; 
+}
+
+.list {
+    scrollbar-width: thin; 
+    scrollbar-color: #888 #f1f1f1; 
+}
+
+@media (max-width: 768px) {
+    .my-posts-wrapper {
+        padding: 20px;
+    }
+
+    .list {
+        gap: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .my-posts-body {
+        padding: 0;
+    }
+
+    .list {
+        gap: 10px;
+        padding: 5px;
+    }
+}
