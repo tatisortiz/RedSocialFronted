@@ -80,8 +80,6 @@ export const Admin = () => {
                 >
                     <h2><Link className="link-user-container" to={`/userPosts/${user._id}/${user.first_name}/${user.last_name}`}>View Posts</Link></h2>
                 </UserCard>
-                
-            
             ))}
         </div>
     );
